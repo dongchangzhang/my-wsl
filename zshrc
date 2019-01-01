@@ -1,6 +1,15 @@
 # zshrc file for wsl
 # update 2019.1.1
+
+# when using wsl-terminal, you can set login shell is zsh
+# but when you do that, it will not read the configration 
+# info in $HOME/.bashrc
+# so loading it before loading the configration of zsh
+# note: redirecting the error information to /dev/null
+source ~/.bashrc 2> /dev/null
+
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+
 export ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="fino-time"
@@ -21,6 +30,9 @@ zle -N sudo-command-line
 bindkey "\e\e" sudo-command-line
 #}}}
 
+# replace rm command to avoid 'error delete'
+# when rm something, mv them into $HOME/.delete
+#
 # for rm {{
 # mkdir ~/.delete, when rm somethings ,mv them to here
 if [ ! -d $HOME/.delete ]
@@ -86,12 +98,14 @@ alias runcpp='./a.out'
 
 alias 'opencv'='g++ `pkg-config --cflags --libs opencv`'
 
+# activing anaconda env by 'Anaconda'
 alias 'Anaconda'='source /home/z/anaconda3/bin/activate root'
 alias 'Anaconda-close'='source /home/z/anaconda3/bin/deactivate root'
+# connecting my vps
 alias 'vps'='ssh -p 28173 root@176.122.129.89'
 
-# windows X server
-export DIAPLAY=localhost:0.0
+# for windows X server (on windows 10)
+export DISPLAY=localhost:0.0
 
 # java jdk {{
 export JAVA_HOME=/usr/lib/jvm/java8
